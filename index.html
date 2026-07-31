@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>第2章 憲法と人権｜公民王への道</title>
+  <style>
+    :root{--navy:#081b3a;--blue:#123c70;--gold:#e9c86d;--cream:#fff8e7;--ink:#142238;--danger:#b9394a;--ok:#2e8b71;--glass:rgba(6,20,45,.88)}
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#061226;color:var(--cream);font-family:"Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif}
+    button{font:inherit}.app{position:relative;width:100%;height:100%;min-height:540px;background:#061226}.screen{position:absolute;inset:0;display:none;overflow:hidden}.screen.active{display:flex;animation:fade .35s ease}
+    @keyframes fade{from{opacity:0}to{opacity:1}}.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.95)}.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,8,20,.18),rgba(2,8,20,.78))}
+    .topbar{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:linear-gradient(180deg,rgba(3,13,31,.92),rgba(3,13,31,.3));font-size:14px}
+    .brand{color:var(--gold);font-weight:800}.controls{display:flex;gap:8px}.icon-btn{border:1px solid rgba(233,200,109,.65);color:#fff;background:rgba(5,23,52,.8);border-radius:9px;padding:7px 11px;cursor:pointer}
+    .center{z-index:2;margin:auto;width:min(920px,92vw);text-align:center}.title-kicker{letter-spacing:.18em;color:var(--gold);font-weight:800}.title{font-family:serif;font-size:clamp(34px,6vw,74px);margin:12px 0;text-shadow:0 3px 16px #000,0 0 22px rgba(233,200,109,.3)}.subtitle{font-size:clamp(18px,2.7vw,30px);margin-bottom:28px}
+    .btn{border:2px solid var(--gold);border-radius:12px;background:linear-gradient(#173d70,#0a244a);color:#fff;padding:13px 25px;min-width:210px;cursor:pointer;box-shadow:0 4px 0 #06152d,0 0 14px rgba(233,200,109,.18);font-weight:800}.btn:hover,.choice:hover{transform:translateY(-1px);filter:brightness(1.12)}.btn.alt{background:rgba(9,26,55,.82);border-color:#8eb5dd}.btn:disabled{opacity:.45;cursor:not-allowed}.button-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .panel{position:relative;z-index:2;background:var(--glass);border:2px solid var(--gold);border-radius:16px;box-shadow:0 10px 34px rgba(0,0,0,.48),inset 0 0 0 3px rgba(255,255,255,.05);padding:22px}.story{max-width:820px;text-align:left;line-height:1.85}.story h2,.question h2{color:var(--gold);margin-top:0}.speaker{color:#9bd6ff;font-weight:800}
+    .dialogue{position:absolute;z-index:4;left:5vw;right:5vw;bottom:4vh;min-height:150px;padding:20px 24px 18px 150px;background:var(--glass);border:3px solid var(--gold);border-radius:16px;box-shadow:0 12px 30px #000}.portrait{position:absolute;left:18px;bottom:13px;width:110px;height:118px;object-fit:contain}.portrait-badge{position:absolute;left:23px;bottom:20px;width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#d9eef9,#6da3d2);border:4px solid var(--gold);color:var(--navy);font-size:42px;font-weight:900}.dialogue .name{color:var(--gold);font-weight:900;margin-bottom:8px}.dialogue .text{line-height:1.65;min-height:52px}.next{position:absolute;right:18px;bottom:12px;color:var(--gold);animation:blink 1s infinite}@keyframes blink{50%{opacity:.3}}
+    .board-wrap{z-index:2;margin:auto;width:min(1050px,96vw);height:min(680px,88vh);position:relative}.board{position:absolute;inset:0;border:2px solid var(--gold);border-radius:18px;overflow:hidden;background:rgba(2,12,31,.35)}.board-bg{width:100%;height:100%;object-fit:cover}.path{position:absolute;inset:8% 5% 18%;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,1fr);gap:10px}.space{align-self:center;justify-self:center;width:clamp(38px,5vw,58px);aspect-ratio:1;border:3px solid #fff2bd;background:#123b6e;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;box-shadow:0 3px 8px #000;position:relative}.space.done{filter:saturate(.35);opacity:.78}.space.current{box-shadow:0 0 0 6px #ffe36d,0 0 24px #fff;transform:scale(1.12)}.space img{position:absolute;width:62%;height:62%;object-fit:contain;opacity:.72}.space span{z-index:1;text-shadow:0 2px 3px #000}.board-status{position:absolute;z-index:4;left:18px;right:18px;bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(4,18,42,.9);border:2px solid var(--gold);border-radius:14px;padding:12px 16px}.dice{width:74px;height:74px;border-radius:14px;border:3px solid var(--gold);background:#fff;color:var(--navy);font-size:38px;font-weight:900;display:grid;place-items:center}.dice.rolling{animation:roll .2s infinite}@keyframes roll{50%{transform:rotate(8deg) scale(1.08)}}
+    .modal{position:absolute;z-index:30;inset:0;display:none;place-items:center;background:rgba(1,6,16,.78);padding:20px}.modal.open{display:grid}.question{width:min(760px,94vw);max-height:90vh;overflow:auto;text-align:left}.question p{font-size:18px;line-height:1.6}.choices{display:grid;gap:10px;margin-top:16px}.choice{border:1px solid #8eb5dd;border-radius:11px;background:#102f59;color:#fff;padding:13px 16px;text-align:left;cursor:pointer}.choice.correct{background:#17664f;border-color:#8ce2c1}.choice.wrong{background:#722b3b;border-color:#ff9aac}.feedback{display:none;margin-top:14px;padding:12px;border-radius:10px;background:rgba(255,255,255,.09);line-height:1.55}.feedback.show{display:block}.tag{display:inline-block;padding:4px 9px;border-radius:999px;background:#234b78;color:#cfeaff;font-size:12px;font-weight:800}.progress{height:10px;border-radius:20px;background:#07162d;overflow:hidden;border:1px solid #597da6}.progress>i{display:block;height:100%;background:linear-gradient(90deg,#4bc1c8,var(--gold));transition:width .35s}
+    .restore-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}.monument{width:100%;max-height:400px;object-fit:contain;filter:drop-shadow(0 8px 18px #000)}.blank{display:inline-block;min-width:100px;border-bottom:3px solid var(--gold);color:#ffe28b;text-align:center}.word-cards{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.word{border:2px solid var(--gold);border-radius:10px;background:#143963;color:white;padding:11px 18px;cursor:pointer;font-weight:800}
+    .battle-stage{z-index:2;position:relative;margin:auto;width:min(1050px,96vw);height:min(700px,92vh)}.enemy{position:absolute;right:8%;top:13%;width:min(350px,40vw);height:46%;object-fit:contain;filter:drop-shadow(0 12px 17px #000)}.battle-hud{position:absolute;left:3%;top:12%;width:min(390px,44vw)}.enemy-name{font-size:22px;color:var(--gold);font-weight:900}.hp{margin-top:8px}.battle-log{position:absolute;left:3%;right:3%;bottom:3%;min-height:170px}.commands{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.commands button{min-width:0;padding:11px}.effect{position:absolute;z-index:5;inset:18% 20%;width:60%;height:48%;object-fit:contain;pointer-events:none;opacity:0;transform:scale(.5)}.effect.play{animation:effect .85s ease}@keyframes effect{45%{opacity:1;transform:scale(1.15)}100%{opacity:0;transform:scale(1.45)}}
+    .reward-grid{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin:24px}.reward{width:190px;min-height:220px;padding:12px;border:2px solid var(--gold);border-radius:15px;background:rgba(9,34,66,.9)}.reward img{width:150px;height:150px;object-fit:contain}.reward h3{margin:7px 0;color:var(--gold)}
+    .toast{position:absolute;z-index:60;top:65px;left:50%;transform:translateX(-50%) translateY(-20px);opacity:0;background:#071b3a;border:1px solid var(--gold);padding:10px 18px;border-radius:999px;transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%)}
+    @media(max-width:700px){.dialogue{left:2vw;right:2vw;padding-left:110px}.portrait,.portrait-badge{width:76px;height:84px}.dialogue{min-height:170px}.path{gap:4px}.space{width:35px;font-size:12px}.board-status{left:7px;right:7px;padding:8px}.dice{width:55px;height:55px}.restore-grid{grid-template-columns:1fr}.monument{max-height:210px}.battle-hud{width:55vw}.enemy{right:1%;width:43vw}.commands{grid-template-columns:1fr}.battle-log{min-height:210px}.question p{font-size:16px}}
+  </style>
+</head>
+<body>
+<main class="app" id="app">
+  <div class="topbar"><div class="brand">第2章 憲法と人権</div><div class="controls"><button class="icon-btn" id="soundBtn">♪ ON</button><button class="icon-btn" id="homeBtn">タイトル</button></div></div>
+
+  <section class="screen active" id="titleScreen"><img class="bg" data-bg="backgrounds/bg_ch2_corrupted_forest.webp"><div class="shade"></div><div class="center"><div class="title-kicker">PROJECT HIROPON</div><h1 class="title">公民王への道</h1><div class="subtitle">第2章 憲法と人権<br><small>憲法を読んだら、人生が変わった件。</small></div><div class="button-row"><button class="btn" id="newBtn">はじめる</button><button class="btn alt" id="continueBtn">つづきから</button></div></div></section>
+
+  <section class="screen" id="storyScreen"><img class="bg" data-bg="backgrounds/bg_ch2_village.webp"><div class="shade"></div><div class="dialogue" id="dialogue"><div class="portrait-badge" id="speakerBadge">ヒ</div><img class="portrait" id="speakerImg" hidden><div class="name" id="speakerName"></div><div class="text" id="dialogueText"></div><div class="next">▼</div></div></section>
+
+  <section class="screen" id="boardScreen"><div class="board-wrap"><div class="board"><img class="board-bg" data-bg="backgrounds/bg_ch2_sugoroku_map.webp"><div class="path" id="path"></div><div class="board-status"><div><b>人権の森・調査すごろく</b><div id="boardMessage">サイコロを振って証言と条文を集めよう。</div><div class="progress"><i id="boardProgress"></i></div></div><div class="dice" id="dice">1</div><button class="btn" id="rollBtn">サイコロ</button></div></div></div></section>
+
+  <section class="screen" id="restoreScreen"><img class="bg" data-bg="backgrounds/bg_ch2_constitution_monument.webp"><div class="shade"></div><div class="center panel restore-grid"><img class="monument" data-asset="effects/stone_restoration.webp"><div><span class="tag">条文復元</span><h2>消えた憲法のことばを取り戻せ</h2><div class="progress"><i id="restoreProgress"></i></div><p id="restorePrompt"></p><div class="word-cards" id="wordCards"></div><div class="feedback" id="restoreFeedback"></div></div></div></section>
+
+  <section class="screen" id="battleScreen"><img class="bg" id="battleBg"><div class="shade"></div><div class="battle-stage"><img class="enemy" id="enemyImg"><img class="effect" id="battleEffect"><div class="battle-hud panel"><div class="enemy-name" id="enemyName"></div><div class="hp">封印力 <span id="hpText"></span></div><div class="progress"><i id="hpBar"></i></div></div><div class="battle-log panel"><div id="battleText"></div><div class="commands" id="battleCommands"></div></div></div></section>
+
+  <section class="screen" id="rewardScreen"><img class="bg" data-bg="backgrounds/bg_ch2_restored_forest.webp"><div class="shade"></div><div class="center panel"><div class="title-kicker">CHAPTER CLEAR</div><h2>人権の森に、憲法のことばが戻った！</h2><div class="reward-grid"><div class="reward"><img data-asset="rewards/badge_human_rights_forest.webp"><h3>人権の森バッジ</h3><small>具体的な場面で人権を使える証</small></div><div class="reward"><img data-asset="rewards/key_peace.webp"><h3>平和の鍵</h3><small>第3章へ続く鍵</small></div></div><button class="btn" id="endingBtn">エンディングへ</button></div></section>
+
+  <section class="screen" id="endingScreen"><img class="bg" data-bg="backgrounds/bg_ch2_restored_forest.webp"><div class="shade"></div><div class="center panel story"><h2>第2章 完</h2><p>人権は、だれにとっても大切である。</p><p>だからこそ、自分の権利だけでなく、他者の権利にも配慮し、必要で合理的な方法で調整することが大切である。</p><p class="speaker">ヒロポン「本当の宝物は、君の中にあった。」</p><div class="button-row"><button class="btn" id="replayBtn">もう一度遊ぶ</button><button class="btn alt" id="titleBtn">タイトルへ</button></div></div></section>
+
+  <div class="modal" id="quizModal"><div class="question panel"><span class="tag" id="quizTag">ジャッジ</span><h2 id="quizTitle"></h2><p id="quizPrompt"></p><div class="choices" id="quizChoices"></div><div class="feedback" id="quizFeedback"></div></div></div>
+  <div class="toast" id="toast"></div>
+</main>
+
+<script>
+const CONFIG = {
+  assetBaseUrl: './assets',
+  audioBaseUrl: './audio',
+  saveKey: 'hiropn_ch2_save_v1'
+};
+const A = p => `${CONFIG.assetBaseUrl}/${p}`;
+const M = p => `${CONFIG.audioBaseUrl}/${p}`;
+
+const story = [
+  ['ヒロポン','ヒ','人権の森から「憲法のことば」が消えてしまった！'],
+  ['北中勉三','勉','ことばが消えただけで、そんなに困るの？'],
+  ['森の住民','', '意見を言えない。学ぶ機会もない。写真まで勝手に広められているんです……。','characters/villagers/villager_teen_girl.webp'],
+  ['ヒロポン','ヒ','権利は、名前を知るだけでは守れない。証言を集め、条文を復元し、事件を解決するぞ！']
+];
+const spaces = [
+  ['start','スタート'],['testimony','SNSに写真を無断投稿された'],['judgment','プライバシーの権利'],['article','第13条の断片'],['hazard','黒い契約書で1マス戻る'],['testimony','性別だけで役割を決められた'],['judgment','法の下の平等'],['treasure','第14条カード'],['testimony','意見発表を理由なく禁止された'],['judgment','表現の自由'],['hint','自由権の3分類'],['testimony','家庭の事情で学びを続けにくい'],['judgment','教育を受ける権利'],['treasure','第26条カード'],['judgment','新しい人権'],['article','第25条・第21条の断片'],['judgment','復元へのショートカット'],['treasure','憲法の石碑を解放']
+];
+const iconMap={testimony:'icon_testimony.webp',judgment:'icon_judgment.webp',article:'icon_article.webp',hazard:'icon_hazard.webp',treasure:'icon_treasure.webp',hint:'icon_hint.webp'};
+const quizzes = [
+ {q:'自分の写真や住所を、本人の同意なく公開されないことに関係するものは？',c:['プライバシーの権利','環境権','勤労の権利'],a:0,e:'私生活上の情報をみだりに公開されない権利です。'},
+ {q:'性別だけを理由に、学級の代表になれないと決められた。最も関係するものは？',c:['生存権','法の下の平等','財産権'],a:1,e:'第14条は、性別などによる不合理な差別を認めていません。'},
+ {q:'市が、理由を示さず住民の集会を禁止した。最も関係する自由は？',c:['居住・移転の自由','職業選択の自由','集会・表現の自由'],a:2,e:'集会や意見の発表は精神の自由に含まれます。'},
+ {q:'すべての国民が、その能力に応じて等しく学ぶ機会をもつことに関係する権利は？',c:['教育を受ける権利','知る権利','財産権'],a:0,e:'第26条は教育を受ける権利を保障しています。'},
+ {q:'憲法に直接名前が書かれていない「新しい人権」が主張された主な理由は？',c:['三大義務がなくなったから','社会や技術が変化したから','憲法が毎年変わるから'],a:1,e:'情報化や環境問題など、新しい課題に対応するためです。'},
+ {q:'自由権の3分類として正しいものは？',c:['精神・身体・経済活動','教育・労働・生活','選挙・請願・裁判'],a:0,e:'自由権は、精神の自由・身体の自由・経済活動の自由に整理できます。'}
+];
+const restoreQs = [
+ {q:'すべて国民は、個人として〔　〕される。',c:['尊重','管理','統一'],a:0,e:'第13条・個人の尊重'},
+ {q:'すべて国民は、法の下に〔　〕であって',c:['自由','平等','同一'],a:1,e:'第14条・法の下の平等'},
+ {q:'集会、結社及び言論、出版その他一切の〔　〕の自由',c:['表現','移動','財産'],a:0,e:'第21条・表現の自由'},
+ {q:'健康で〔　〕な最低限度の生活',c:['安定的','文化的','平均的'],a:1,e:'第25条・生存権'},
+ {q:'その能力に応じて、ひとしく〔　〕を受ける権利',c:['教育','援助','訓練'],a:0,e:'第26条・教育を受ける権利'},
+ {q:'勤労者の団結権などは、これを〔　〕する。',c:['制限','保障','許可'],a:1,e:'第28条・労働基本権'}
+];
+const enemies = [
+ {name:'差別の門番',img:'enemies/enemy_gatekeeper.webp',type:'number',q:'「法の下の平等」を定めるのは第何条？',c:['第13条','第14条','第25条'],a:1,e:'第14条。性別だけで役割を固定せず、本人の希望や能力で考えます。'},
+ {name:'発言封じの霧',img:'enemies/enemy_silencing_fog.webp',type:'fake',q:'偽条文の誤りを見破れ：\n「集会・言論・出版の自由は、原則として認めない。」',c:['「集会」が誤り','「認めない」が誤り','誤りはない'],a:1,e:'第21条は表現の自由を保障しています。'},
+ {name:'学びを奪う影',img:'enemies/enemy_learning_shadow.webp',type:'number',q:'「教育を受ける権利」を定めるのは第何条？',c:['第21条','第25条','第26条'],a:2,e:'第26条。家庭事情があっても学べる支援につなげます。'},
+ {name:'生活破壊ゴーレム',img:'enemies/enemy_life_golem.webp',type:'combo',q:'家庭事情で学べず、最低限の生活も難しい。必要な条文コンボは？',c:['第13条＋第21条','第25条＋第26条','第14条＋第28条'],a:1,e:'生存権と教育を受ける権利を組み合わせます。'},
+ {name:'情報ぬすみ',img:'enemies/enemy_information_thief.webp',type:'combo',q:'SNSで写真を無断公開された。最も有効なコンボは？',c:['第13条＋プライバシーの権利','第25条＋生存権','第28条＋労働基本権'],a:0,e:'個人の尊重を基礎に、削除・同意確認・再発防止を行います。'}
+];
+const bossPhases = [
+ {type:'number',q:'第1形態：表現・集会の自由を保障するのは第何条？',c:['第14条','第21条','第26条'],a:1,e:'第21条で、条文番号の盾を破壊！'},
+ {type:'fake',q:'第2形態：偽条文を見破れ。\n「すべて国民は、自分の権利だけを無制限に主張できる。」',c:['「すべて国民」が誤り','「自分の権利だけ・無制限」が誤り','正しい条文'],a:1,e:'人権は大切ですが、他者の人権との調整も必要です。'},
+ {type:'combo',q:'第3形態：公園の集会と近隣住民の生活。使う条文コンボは？',c:['第13条＋第21条','第25条＋第28条','第14条＋第26条'],a:0,e:'個人の尊重と表現・集会の自由の両方から考えます。'},
+ {type:'judge',q:'最終形態：両方の人権を守る最も適切な解決は？',c:['集会を全面禁止する','自由なので一切制限しない','時間帯・場所・音量の条件を合理的に決める'],a:2,e:'権利を守りつつ他者への影響を小さくする、必要で合理的な調整です。'}
+];
+const tracks={field:'bgm-field.mp3',talk:'bgm-talk.mp3',battle:'bgm-battle.mp3',boss:'bgm-boss.mp3',ending:'bgm-ending.mp3'};
+const ses={dice:'se-dice.mp3',question:'se-question.mp3',correct:'se-correct.mp3',combo:'se-combo.mp3',wrong:'se-wrong.mp3',magic:'se-magic.mp3',reward:'se-reward.mp3'};
+let state={phase:'title',position:0,score:0,storyIndex:0,restoreIndex:0,enemyIndex:0,bossIndex:0,consults:1,completed:false};
+let sound=true,currentBgm=null,rolling=false;
+
+const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
+function show(id){$$('.screen').forEach(x=>x.classList.remove('active'));$('#'+id).classList.add('active');state.phase=id;save();}
+function save(){if(state.phase!=='title')localStorage.setItem(CONFIG.saveKey,JSON.stringify(state));updateContinue();}
+function load(){try{const s=JSON.parse(localStorage.getItem(CONFIG.saveKey));if(s)state={...state,...s};return !!s}catch{return false}}
+function updateContinue(){$('#continueBtn').disabled=!localStorage.getItem(CONFIG.saveKey)}
+function assetSetup(){$$('[data-bg]').forEach(x=>x.src=A(x.dataset.bg));$$('[data-asset]').forEach(x=>x.src=A(x.dataset.asset));$('#battleBg').src=A('backgrounds/bg_ch2_boss_arena.webp')}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1500)}
+function bgm(id){if(!sound)return; if(currentBgm){currentBgm.pause()} currentBgm=new Audio(M(tracks[id]));currentBgm.loop=id!=='boss';currentBgm.volume=(id==='battle'||id==='boss')?.34:.45;currentBgm.play().catch(()=>{})}
+function se(id){if(!sound)return;const a=new Audio(M(ses[id]));a.volume=id==='wrong'?.35:.55;a.play().catch(()=>{})}
+function stopBgm(){if(currentBgm){currentBgm.pause();currentBgm=null}}
+
+function startNew(){localStorage.removeItem(CONFIG.saveKey);state={phase:'storyScreen',position:0,score:0,storyIndex:0,restoreIndex:0,enemyIndex:0,bossIndex:0,consults:1,completed:false};show('storyScreen');bgm('talk');renderStory()}
+function renderStory(){const [name,badge,text,img]=story[state.storyIndex];$('#speakerName').textContent=name;$('#dialogueText').textContent=text;$('#speakerBadge').hidden=!!img;$('#speakerImg').hidden=!img;if(img)$('#speakerImg').src=A(img);else $('#speakerBadge').textContent=badge}
+function nextStory(){state.storyIndex++;save();if(state.storyIndex>=story.length){showBoard();return}renderStory()}
+function renderBoard(){const p=$('#path');p.innerHTML='';spaces.forEach((s,i)=>{const d=document.createElement('div');d.className='space '+(i<state.position?'done ':'')+(i===state.position?'current':'');d.style.gridColumn=(Math.floor(i/6)%2===0)?(i%6)+1:6-(i%6);d.style.gridRow=Math.floor(i/6)+1; if(iconMap[s[0]])d.innerHTML=`<img src="${A('ui/map-icons/'+iconMap[s[0]])}"><span>${i+1}</span>`;else d.innerHTML=`<span>${i+1}</span>`;p.appendChild(d)});$('#boardProgress').style.width=`${state.position/17*100}%`}
+function showBoard(){show('boardScreen');renderBoard();bgm('field');$('#boardMessage').textContent=state.position?'次のマスへ進もう。':'サイコロを振って証言と条文を集めよう。'}
+async function roll(){if(rolling)return;rolling=true;se('dice');$('#rollBtn').disabled=true;$('#dice').classList.add('rolling');for(let i=0;i<8;i++){await wait(70);$('#dice').textContent=1+Math.floor(Math.random()*3)}const n=1+Math.floor(Math.random()*3);$('#dice').textContent=n;$('#dice').classList.remove('rolling');for(let i=0;i<n&&state.position<17;i++){await wait(230);state.position++;renderBoard()}rolling=false;$('#rollBtn').disabled=false;save();resolveSpace()}
+function resolveSpace(){const [type,text]=spaces[state.position];$('#boardMessage').textContent=text;if(state.position===17){setTimeout(startRestore,700);return}if(type==='hazard'){toast('黒い契約書！ 1マス戻る');state.position=Math.max(0,state.position-1);renderBoard();save();return}if(type==='judgment'){const q=quizzes[Math.min(quizzes.length-1,Math.floor(state.position/3))];openQuiz('人権ジャッジ',q,()=>showBoard());return}if(type==='testimony'){openInfo('住民の証言',text,'この証言を事件ファイルに記録した。',()=>showBoard());return}if(type==='article'||type==='treasure'){openInfo('手がかりGET',text,'条文バトルで使える手がかりを入手した。',()=>showBoard());return}if(type==='hint'){openInfo('ヒロポンのヒント','自由権は「精神・身体・経済活動」の3つに整理できる。','ヒロポン相談が1回増えた！',()=>{state.consults++;showBoard()});return}}
+function openInfo(title,prompt,explain,done){openQuiz(title,{q:prompt,c:['確認した'],a:0,e:explain},done)}
+function openQuiz(tag,q,done){se('question');$('#quizTag').textContent=tag;$('#quizTitle').textContent=tag;$('#quizPrompt').textContent=q.q;const box=$('#quizChoices');box.innerHTML='';$('#quizFeedback').className='feedback';q.c.forEach((c,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=c;b.onclick=()=>answerChoice(b,i,q,done);box.appendChild(b)});$('#quizModal').classList.add('open')}
+function answerChoice(btn,i,q,done){const all=$$('#quizChoices .choice');all.forEach(x=>x.disabled=true);const ok=i===q.a;btn.classList.add(ok?'correct':'wrong');all[q.a].classList.add('correct');se(ok?'correct':'wrong');if(ok)state.score++;const f=$('#quizFeedback');f.innerHTML=`<b>${ok?'正解！':'もう一歩！'}</b><br>${q.e}<br><button class="btn" id="quizNext" style="margin-top:12px">次へ</button>`;f.classList.add('show');$('#quizNext').onclick=()=>{$('#quizModal').classList.remove('open');done(ok)};save()}
+function startRestore(){state.restoreIndex=0;show('restoreScreen');bgm('field');renderRestore()}
+function renderRestore(){const q=restoreQs[state.restoreIndex];$('#restoreProgress').style.width=`${state.restoreIndex/restoreQs.length*100}%`;$('#restorePrompt').innerHTML=q.q.replace('〔　〕','<span class="blank">　？　</span>');const w=$('#wordCards');w.innerHTML='';$('#restoreFeedback').className='feedback';q.c.forEach((c,i)=>{const b=document.createElement('button');b.className='word';b.textContent=c;b.onclick=()=>answerRestore(i,q);w.appendChild(b)})}
+function answerRestore(i,q){if(i===q.a){se('magic');state.score++;$('#restoreFeedback').innerHTML=`<b>条文解放！</b> ${q.e}`;$('#restoreFeedback').classList.add('feedback','show');$$('.word').forEach(x=>x.disabled=true);setTimeout(()=>{state.restoreIndex++;if(state.restoreIndex>=restoreQs.length){state.consults+=state.score>=5?1:0;startBattles()}else renderRestore()},900)}else{se('wrong');$('#restoreFeedback').textContent='意味を考えて、もう一度選ぼう。';$('#restoreFeedback').classList.add('feedback','show')}save()}
+function startBattles(){state.enemyIndex=0;show('battleScreen');bgm('battle');renderEnemy()}
+function renderEnemy(){const e=enemies[state.enemyIndex];$('#enemyName').textContent=e.name;$('#enemyImg').src=A(e.img);$('#hpText').textContent='1 / 1';$('#hpBar').style.width='100%';$('#battleText').innerHTML=`<b>${e.name}</b>が人権トラブルを生み出した！<br>まず住民の話を聞き、条文を使って封印を解こう。`;commands([['話を聞く',()=>battleQuestion(e)],['ヒロポンに相談',()=>consult(e)]])}
+function commands(items){const c=$('#battleCommands');c.innerHTML='';items.forEach(([t,fn])=>{const b=document.createElement('button');b.className='btn';b.textContent=t;b.onclick=fn;c.appendChild(b)})}
+function consult(e){if(state.consults<1){toast('相談回数を使い切った');return}state.consults--;$('#battleText').innerHTML=`<span class="speaker">ヒロポン：</span>「${e.type==='number'?'権利名と条文番号を結び付けよう。':e.type==='fake'?'本物らしく見える言葉に注意！':'1つの権利だけで解決できるかな？'}」<br>残り相談：${state.consults}回`;save()}
+function battleQuestion(e){openQuiz(e.type==='number'?'条文番号ロック':e.type==='fake'?'偽条文ブレイク':'条文コンボ',{q:e.q,c:e.c,a:e.a,e:e.e},ok=>{if(ok)defeatEnemy(e);else{$('#battleText').textContent='封印はまだ残っている。解説を確認して、もう一度挑戦しよう。';commands([['再挑戦',()=>battleQuestion(e)],['ヒロポンに相談',()=>consult(e)]])}})}
+function effectFor(type){return type==='number'?'effect_article_number_lock.webp':type==='fake'?'effect_fake_article_break.webp':'effect_article_combo.webp'}
+function playEffect(type){const x=$('#battleEffect');x.src=A('effects/battle/'+effectFor(type));x.classList.remove('play');void x.offsetWidth;x.classList.add('play')}
+function defeatEnemy(e){playEffect(e.type);se(e.type==='combo'?'combo':'magic');$('#hpBar').style.width='0%';$('#hpText').textContent='0 / 1';$('#battleText').innerHTML=`<b>条文解放！</b> ${e.name}の封印を解除した。`;commands([['次の戦いへ',()=>{state.enemyIndex++;save();if(state.enemyIndex>=enemies.length)startBoss();else renderEnemy()}]])}
+function startBoss(){state.bossIndex=0;bgm('boss');$('#enemyImg').src=A('enemies/boss_contract_king_mukenry.webp');$('#enemyName').textContent='契約王ムケンリー';renderBoss()}
+function renderBoss(){const p=bossPhases[state.bossIndex];$('#hpText').textContent=`${4-state.bossIndex} / 4`;$('#hpBar').style.width=`${(4-state.bossIndex)/4*100}%`;$('#battleText').innerHTML=`<b>契約王ムケンリー</b><br>${p.q.replace('\n','<br>')}`;commands([['挑戦する',()=>bossQuestion(p)],['ヒロポンに相談',()=>consult(p)]]);save()}
+function bossQuestion(p){openQuiz('ラスボス戦',{q:p.q,c:p.c,a:p.a,e:p.e},ok=>{if(ok){playEffect(p.type==='judge'?'combo':p.type);se(p.type==='combo'||p.type==='judge'?'combo':'magic');state.bossIndex++;if(state.bossIndex>=bossPhases.length){$('#hpBar').style.width='0%';$('#hpText').textContent='0 / 4';$('#battleText').innerHTML='<b>公共の福祉ジャッジ成功！</b><br>自分と他者、両方の人権を守る条件で契約王を打ち破った！';commands([['報酬を受け取る',showRewards]])}else renderBoss()}else{$('#battleText').textContent='契約王の封印が答えをはじいた。解説を手がかりに再挑戦！';commands([['再挑戦',()=>bossQuestion(p)],['ヒロポンに相談',()=>consult(p)]])}})}
+function showRewards(){stopBgm();se('reward');state.completed=true;show('rewardScreen');save()}
+function showEnding(){show('endingScreen');bgm('ending');save()}
+function resume(){
+  if(!load())return startNew();
+  if(state.phase==='endingScreen'){show('endingScreen');bgm('ending');return}
+  if(state.completed||state.phase==='rewardScreen'){show('rewardScreen');return}
+  if(state.phase==='storyScreen'){show('storyScreen');bgm('talk');renderStory()}
+  else if(state.phase==='boardScreen'){showBoard()}
+  else if(state.phase==='restoreScreen'){show('restoreScreen');renderRestore();bgm('field')}
+  else if(state.phase==='battleScreen'){show('battleScreen');if(state.enemyIndex>=enemies.length)startBoss();else{bgm('battle');renderEnemy()}}
+  else startNew()
+}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+
+$('#newBtn').onclick=startNew;$('#continueBtn').onclick=resume;$('#dialogue').onclick=nextStory;$('#rollBtn').onclick=roll;$('#endingBtn').onclick=showEnding;$('#replayBtn').onclick=startNew;$('#titleBtn').onclick=()=>{stopBgm();show('titleScreen')};$('#homeBtn').onclick=()=>{stopBgm();show('titleScreen')};$('#soundBtn').onclick=()=>{sound=!sound;$('#soundBtn').textContent=sound?'♪ ON':'♪ OFF';if(!sound)stopBgm();toast(sound?'音をONにしました':'音をOFFにしました')};
+assetSetup();updateContinue();renderBoard();
+</script>
+</body>
+</html>
