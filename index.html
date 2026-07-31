@@ -101,6 +101,7 @@ let sound=true,currentBgm=null,rolling=false;
 
 const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
 function show(id){$$('.screen').forEach(x=>x.classList.remove('active'));$('#'+id).classList.add('active');state.phase=id;save();}
+function showTitle(){stopBgm();$$('.screen').forEach(x=>x.classList.remove('active'));$('#titleScreen').classList.add('active');updateContinue()}
 function save(){if(state.phase!=='title')localStorage.setItem(CONFIG.saveKey,JSON.stringify(state));updateContinue();}
 function load(){try{const s=JSON.parse(localStorage.getItem(CONFIG.saveKey));if(s)state={...state,...s};return !!s}catch{return false}}
 function updateContinue(){$('#continueBtn').disabled=!localStorage.getItem(CONFIG.saveKey)}
@@ -122,7 +123,7 @@ function openQuiz(tag,q,done){se('question');$('#quizTag').textContent=tag;$('#q
 function answerChoice(btn,i,q,done){const all=$$('#quizChoices .choice');all.forEach(x=>x.disabled=true);const ok=i===q.a;btn.classList.add(ok?'correct':'wrong');all[q.a].classList.add('correct');se(ok?'correct':'wrong');if(ok)state.score++;const f=$('#quizFeedback');f.innerHTML=`<b>${ok?'正解！':'もう一歩！'}</b><br>${q.e}<br><button class="btn" id="quizNext" style="margin-top:12px">次へ</button>`;f.classList.add('show');$('#quizNext').onclick=()=>{$('#quizModal').classList.remove('open');done(ok)};save()}
 function startRestore(){state.restoreIndex=0;show('restoreScreen');bgm('field');renderRestore()}
 function renderRestore(){const q=restoreQs[state.restoreIndex];$('#restoreProgress').style.width=`${state.restoreIndex/restoreQs.length*100}%`;$('#restorePrompt').innerHTML=q.q.replace('〔　〕','<span class="blank">　？　</span>');const w=$('#wordCards');w.innerHTML='';$('#restoreFeedback').className='feedback';q.c.forEach((c,i)=>{const b=document.createElement('button');b.className='word';b.textContent=c;b.onclick=()=>answerRestore(i,q);w.appendChild(b)})}
-function answerRestore(i,q){if(i===q.a){se('magic');state.score++;$('#restoreFeedback').innerHTML=`<b>条文解放！</b> ${q.e}`;$('#restoreFeedback').classList.add('feedback','show');$$('.word').forEach(x=>x.disabled=true);setTimeout(()=>{state.restoreIndex++;if(state.restoreIndex>=restoreQs.length){state.consults+=state.score>=5?1:0;startBattles()}else renderRestore()},900)}else{se('wrong');$('#restoreFeedback').textContent='意味を考えて、もう一度選ぼう。';$('#restoreFeedback').classList.add('feedback','show')}save()}
+function answerRestore(i,q){if(i===q.a){se('magic');state.score++;$('#restoreFeedback').innerHTML=`<b>条文解放！</b> ${q.e}`;$('#restoreFeedback').classList.add('feedback','show');$$('.word').forEach(x=>x.disabled=true);setTimeout(()=>{state.restoreIndex++;save();if(state.restoreIndex>=restoreQs.length){state.consults+=state.score>=5?1:0;startBattles()}else renderRestore()},900)}else{se('wrong');$('#restoreFeedback').textContent='意味を考えて、もう一度選ぼう。';$('#restoreFeedback').classList.add('feedback','show')}save()}
 function startBattles(){state.enemyIndex=0;show('battleScreen');bgm('battle');renderEnemy()}
 function renderEnemy(){const e=enemies[state.enemyIndex];$('#enemyName').textContent=e.name;$('#enemyImg').src=A(e.img);$('#hpText').textContent='1 / 1';$('#hpBar').style.width='100%';$('#battleText').innerHTML=`<b>${e.name}</b>が人権トラブルを生み出した！<br>まず住民の話を聞き、条文を使って封印を解こう。`;commands([['話を聞く',()=>battleQuestion(e)],['ヒロポンに相談',()=>consult(e)]])}
 function commands(items){const c=$('#battleCommands');c.innerHTML='';items.forEach(([t,fn])=>{const b=document.createElement('button');b.className='btn';b.textContent=t;b.onclick=fn;c.appendChild(b)})}
@@ -133,7 +134,7 @@ function playEffect(type){const x=$('#battleEffect');x.src=A('effects/battle/'+e
 function defeatEnemy(e){playEffect(e.type);se(e.type==='combo'?'combo':'magic');$('#hpBar').style.width='0%';$('#hpText').textContent='0 / 1';$('#battleText').innerHTML=`<b>条文解放！</b> ${e.name}の封印を解除した。`;commands([['次の戦いへ',()=>{state.enemyIndex++;save();if(state.enemyIndex>=enemies.length)startBoss();else renderEnemy()}]])}
 function startBoss(){state.bossIndex=0;bgm('boss');$('#enemyImg').src=A('enemies/boss_contract_king_mukenry.webp');$('#enemyName').textContent='契約王ムケンリー';renderBoss()}
 function renderBoss(){const p=bossPhases[state.bossIndex];$('#hpText').textContent=`${4-state.bossIndex} / 4`;$('#hpBar').style.width=`${(4-state.bossIndex)/4*100}%`;$('#battleText').innerHTML=`<b>契約王ムケンリー</b><br>${p.q.replace('\n','<br>')}`;commands([['挑戦する',()=>bossQuestion(p)],['ヒロポンに相談',()=>consult(p)]]);save()}
-function bossQuestion(p){openQuiz('ラスボス戦',{q:p.q,c:p.c,a:p.a,e:p.e},ok=>{if(ok){playEffect(p.type==='judge'?'combo':p.type);se(p.type==='combo'||p.type==='judge'?'combo':'magic');state.bossIndex++;if(state.bossIndex>=bossPhases.length){$('#hpBar').style.width='0%';$('#hpText').textContent='0 / 4';$('#battleText').innerHTML='<b>公共の福祉ジャッジ成功！</b><br>自分と他者、両方の人権を守る条件で契約王を打ち破った！';commands([['報酬を受け取る',showRewards]])}else renderBoss()}else{$('#battleText').textContent='契約王の封印が答えをはじいた。解説を手がかりに再挑戦！';commands([['再挑戦',()=>bossQuestion(p)],['ヒロポンに相談',()=>consult(p)]])}})}
+function bossQuestion(p){openQuiz('ラスボス戦',{q:p.q,c:p.c,a:p.a,e:p.e},ok=>{if(ok){playEffect(p.type==='judge'?'combo':p.type);se(p.type==='combo'||p.type==='judge'?'combo':'magic');state.bossIndex++;save();if(state.bossIndex>=bossPhases.length){$('#hpBar').style.width='0%';$('#hpText').textContent='0 / 4';$('#battleText').innerHTML='<b>公共の福祉ジャッジ成功！</b><br>自分と他者、両方の人権を守る条件で契約王を打ち破った！';commands([['報酬を受け取る',showRewards]])}else renderBoss()}else{$('#battleText').textContent='契約王の封印が答えをはじいた。解説を手がかりに再挑戦！';commands([['再挑戦',()=>bossQuestion(p)],['ヒロポンに相談',()=>consult(p)]])}})}
 function showRewards(){stopBgm();se('reward');state.completed=true;show('rewardScreen');save()}
 function showEnding(){show('endingScreen');bgm('ending');save()}
 function resume(){
@@ -143,12 +144,12 @@ function resume(){
   if(state.phase==='storyScreen'){show('storyScreen');bgm('talk');renderStory()}
   else if(state.phase==='boardScreen'){showBoard()}
   else if(state.phase==='restoreScreen'){show('restoreScreen');renderRestore();bgm('field')}
-  else if(state.phase==='battleScreen'){show('battleScreen');if(state.enemyIndex>=enemies.length)startBoss();else{bgm('battle');renderEnemy()}}
+  else if(state.phase==='battleScreen'){show('battleScreen');if(state.enemyIndex>=enemies.length){bgm('boss');$('#enemyImg').src=A('enemies/boss_contract_king_mukenry.webp');$('#enemyName').textContent='契約王ムケンリー';if(state.bossIndex>=bossPhases.length){$('#hpBar').style.width='0%';$('#hpText').textContent='0 / 4';$('#battleText').innerHTML='<b>公共の福祉ジャッジ成功！</b><br>自分と他者、両方の人権を守る条件で契約王を打ち破った！';commands([['報酬を受け取る',showRewards]])}else renderBoss()}else{bgm('battle');renderEnemy()}}
   else startNew()
 }
 function wait(ms){return new Promise(r=>setTimeout(r,ms))}
 
-$('#newBtn').onclick=startNew;$('#continueBtn').onclick=resume;$('#dialogue').onclick=nextStory;$('#rollBtn').onclick=roll;$('#endingBtn').onclick=showEnding;$('#replayBtn').onclick=startNew;$('#titleBtn').onclick=()=>{stopBgm();show('titleScreen')};$('#homeBtn').onclick=()=>{stopBgm();show('titleScreen')};$('#soundBtn').onclick=()=>{sound=!sound;$('#soundBtn').textContent=sound?'♪ ON':'♪ OFF';if(!sound)stopBgm();toast(sound?'音をONにしました':'音をOFFにしました')};
+$('#newBtn').onclick=startNew;$('#continueBtn').onclick=resume;$('#dialogue').onclick=nextStory;$('#rollBtn').onclick=roll;$('#endingBtn').onclick=showEnding;$('#replayBtn').onclick=startNew;$('#titleBtn').onclick=showTitle;$('#homeBtn').onclick=showTitle;$('#soundBtn').onclick=()=>{sound=!sound;$('#soundBtn').textContent=sound?'♪ ON':'♪ OFF';if(!sound)stopBgm();toast(sound?'音をONにしました':'音をOFFにしました')};
 assetSetup();updateContinue();renderBoard();
 </script>
 </body>
