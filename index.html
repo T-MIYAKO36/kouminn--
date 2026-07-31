@@ -48,11 +48,11 @@
 
 <script>
 const CONFIG = {
-  assetBaseUrl: './assets',
-  audioBaseUrl: './audio',
+  assetBaseUrl: '.',
+  audioBaseUrl: '.',
   saveKey: 'hiropn_ch2_save_v1'
 };
-const A = p => `${CONFIG.assetBaseUrl}/${p}`;
+const A = p => `${CONFIG.assetBaseUrl}/${p.split('/').pop()}`;
 const M = p => `${CONFIG.audioBaseUrl}/${p}`;
 
 const story = [
